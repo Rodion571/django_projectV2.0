@@ -1,0 +1,31 @@
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-header">
+      <h2>Contact</h2>
+      <p>Need Help? <span>Contact Us</span></p>
+    </div>
+
+    <div class="row gy-4">
+        {% for contact in contacts %}
+            {% if 'Address' in contact.item_title %}
+                {% with icon_class='bi bi-map' %}
+                    {% include 'contact_item.html' %}
+                {% endwith %}
+            {% elif 'Email' in contact.item_title %}
+                {% with icon_class='bi bi-envelope' %}
+                    {% include 'contact_item.html' %}
+                {% endwith %}
+            {% elif 'Call' in contact.item_title %}
+                {% with icon_class='bi bi-telephone' %}
+                    {% include 'contact_item.html' %}
+                {% endwith %}
+            {% elif 'Opening' in contact.item_title %}
+                {% with icon_class='bi bi-share' %}
+                    {% include 'contact_item.html' %}
+                {% endwith %}
+            {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+</section>
