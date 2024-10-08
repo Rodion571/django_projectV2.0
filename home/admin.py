@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Category, Dish, Event, Chef, ChefCategory, Gallery, Contact
+from .models import Category, Dish, Event, Chef, ChefCategory, Gallery, Contact, Reservation, FooterItem
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -12,9 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Dish)
 class DishAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'name', 'ingredients', 'price', 'weight', 'photo', 'is_visible', 'sort', 'updated_at')
-    list_editable = ('name', 'ingredients', 'price', 'weight', 'photo', 'is_visible', 'sort')
-    list_filter = ('is_visible', 'created_at', 'updated_at')
+    list_display = ('created_at', 'name', 'ingredients', 'price', 'weight', 'photo', 'is_visible', 'sort', 'category', 'updated_at')
+    list_editable = ('name', 'ingredients', 'price', 'weight', 'photo', 'is_visible', 'sort', 'category')
+    list_filter = ('is_visible', 'created_at', 'updated_at', 'category')
     date_hierarchy = 'created_at'
 
 @admin.register(Event)
@@ -44,4 +45,24 @@ class GalleryAdmin(admin.ModelAdmin):
     list_filter = ('is_visible', 'position')
     date_hierarchy ='created_at'
 
-admin.site.register(Contact)
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('item_title', 'created_at', 'updated_at')
+    list_filter = ('created_at', 'updated_at')
+    search_fields = ('item_title',)
+
+@admin.register(Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email', 'date', 'time', 'people', 'is_processed', 'created_at', 'updated_at')
+    list_editable = ('is_processed',)
+    list_filter = ('is_processed', 'created_at', 'updated_at')
+    search_fields = ('name', 'email', 'phone')
+    date_hierarchy = 'created_at'
+
+@admin.register(FooterItem)
+class FooterItemAdmin(admin.ModelAdmin):
+    list_display = ('created_at', 'item_title', 'item_description', 'item_icon', 'item_slug', 'item_follow_link', 'item_follow_name', 'updated_at')
+    list_editable = ('item_title', 'item_description', 'item_icon', 'item_slug', 'item_follow_link', 'item_follow_name')
+    list_filter = ('created_at', 'updated_at', 'item_title', 'item_description')
+    search_fields = ('item_title', 'item_description')
+    date_hierarchy = 'created_at'

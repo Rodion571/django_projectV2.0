@@ -3,49 +3,47 @@
     <div class="container">
       <div class="row gy-3">
         <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
+          <i class="{{ footer_items.address.item_icon }}"></i>
           <div>
-            <h4>Address</h4>
+            <h4>{{ footer_items.address.item_title }}</h4>
             <p>
-              A108 Adam Street <br>
-              New York, NY 535022 - US<br>
+                {{ footer_items.address.item_description|safe }}
             </p>
           </div>
 
         </div>
 
         <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-telephone icon"></i>
+          <i class="{{ footer_items.reservations.item_icon }}"></i>
           <div>
-            <h4>Reservations</h4>
+            <h4>{{ footer_items.reservations.item_title }}</h4>
             <p>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
+                {{ footer_items.reservations.item_description|safe }}
             </p>
           </div>
         </div>
 
         <div class="col-lg-3 col-md-6 footer-links d-flex">
-          <i class="bi bi-clock icon"></i>
+          <i class="{{ footer_items.opening_hours.item_icon }}"></i>
           <div>
-            <h4>Opening Hours</h4>
+            <h4>{{ footer_items.opening_hours.item_title }}</h4>
             <p>
-              <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-              Sunday: Closed
+                {{ footer_items.opening_hours.item_description|safe }}
             </p>
           </div>
         </div>
-
         <div class="col-lg-3 col-md-6 footer-links">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
+            {% if footer_items.follow_us %}
+                <h4>{{ footer_items.follow_us.0.item_title }}</h4>
+                <div class="social-links d-flex">
+                    {% for follow_us in footer_items.follow_us %}
+                        <a href="#" class="{{ follow_us.item_slug }}"><i class="{{ follow_us.item_icon }}"></i></a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No social links available</p>
+            {% endif %}
         </div>
-
       </div>
     </div>
 

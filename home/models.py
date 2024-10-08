@@ -90,7 +90,8 @@ class Contact(models.Model):
         return self.item_title
 
 class Reservation(models.Model):
-    phone_regex = RegexValidator(regex=r'^\+?3?\d{9,15}', message="Phone number must be entered in the format: '+3999999999'")
+    phone_regex = RegexValidator(regex=r'^\+?3?\d{9,15}',
+                                 message="Phone number must be entered in the format: '+3999999999'")
     name = models.CharField(max_length=50)
     phone = models.CharField(max_length=50, validators=[phone_regex])
     email = models.EmailField()
@@ -98,8 +99,25 @@ class Reservation(models.Model):
     time = models.TimeField()
     people = models.IntegerField()
     message = models.TextField()
+    is_processed = models.BooleanField(default=False)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
+
+class FooterItem(models.Model):
+    item_title = models.CharField(max_length=50)
+    item_description = RichTextField()
+    item_icon = models.CharField(max_length=50, null=True, blank=True)
+
+    item_slug = models.SlugField(max_length=50, unique=True)
+    item_follow_name = models.CharField(max_length=50, null=True, blank=True)
+    item_follow_link = models.URLField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.item_title
